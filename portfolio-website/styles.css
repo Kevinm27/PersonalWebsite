@@ -1,0 +1,90 @@
+/* Header Styles */
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+#navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#navbar ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+#navbar ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Homepage Styles */
+#home {
+    background-color: #f9f9f9;
+    padding: 2rem;
+    text-align: center;
+}
+
+#home h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+#home p {
+    font-size: 1.2rem;
+}
+
+/* About Section */
+#about {
+    padding: 2rem;
+    background-color: #e6e6e6;
+    text-align: center;
+}
+
+.about-content {
+    text-align: left;
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+.about-content h2 {
+    margin-top: 1.5rem;
+    font-size: 1.4rem;
+}
+
+.about-content ul {
+    margin-left: 1.5em;
+    list-style-type: disc;
+}
+
+.about-content ul li {
+    margin-bottom: 0.5em;
+}
+
+
+/* Portfolio Section */
+#portfolio {
+    padding: 2rem;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+/* Contact Section */
+#contact {
+    padding: 2rem;
+    background-color: #e6e6e6;
+    text-align: center;
+}
+
+/* Contact Section Styling */
+#social-media-links {
+    margin-top: 1rem;
+}
+#social-media-links a {
+    margin: 0 10px;
+    text-decoration: none;
+}
