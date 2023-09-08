@@ -1,12 +1,8 @@
 // Existing code
 console.log("JavaScript is connected!");
-
+console.log(marked.version);
 // Mockup data for projects
-const projects = [
-    { title: "Project 1", description: "This is project 1." },
-    { title: "Project 2", description: "This is project 2." },
-    // Add as many projects as you like
-];
+const projects = [];
 
 // Function to add projects to the Portfolio section
 function addProjects() {
@@ -29,13 +25,10 @@ function addProjects() {
 
 // Function to toggle the visibility of sections
 function toggleSectionVisibility(sectionId) {
-    // Get all sections and hide them
     const sections = document.querySelectorAll('main > section');
     sections.forEach((section) => {
-      section.style.display = 'none';
+        section.style.display = 'none';
     });
-  
-    // Show the selected section
     const selectedSection = document.getElementById(sectionId);
     selectedSection.style.display = 'block';
 }
@@ -44,25 +37,30 @@ function toggleSectionVisibility(sectionId) {
 async function fetchUserRepos() {
     const response1 = await fetch('https://api.github.com/users/Kevinm27/repos');
     const data1 = await response1.json();
-    
-    const response2 = await fetch('https://api.github.com/repos/comp195/senior-project-spring-2023-interactive-banking');
-    const data2 = await response2.json();
-    
-    if (response1.ok && response2.ok) {
-        const combinedData = [...data1, data2];
-        populateRepos(combinedData);
-    } else {
-        console.error('Failed to fetch repositories.');
-    }
+    const filteredRepos = data1.filter(repo => ['InteractiveBanking', 'JobAppFiller', 'StarShift'].includes(repo.name));
+    populateRepos(filteredRepos);
 }
 
 // Function to populate repositories on the page
 function populateRepos(repositories) {
     const projectList = document.getElementById('project-list');
-    repositories.forEach((repo) => {
+    repositories.forEach(async (repo) => {
         const projectCard = document.createElement('div');
         projectCard.className = 'project-card';
         
+        if(repo.name == "StarShift"){
+            const videoDemo = document.createElement('video');
+            videoDemo.setAttribute('controls', true)
+            videoDemo.width = 300;
+
+            const videoSource = document.createElement('source');
+            videoSource.setAttribute('src', 'demo/StarShiftDemo.mp4');
+            videoSource.setAttribute('type', 'videos/mp4');
+
+            videoDemo.appendChild(videoSource);
+            projectCard.appendChild(videoDemo);
+        }
+
         const projectTitle = document.createElement('h3');
         projectTitle.innerText = repo.name;
 
@@ -74,9 +72,28 @@ function populateRepos(repositories) {
         projectLink.target = '_blank';
         projectLink.innerText = 'View on GitHub';
 
+        const readmeBox = document.createElement('div');
+        readmeBox.className = 'readme-box';
+
+        const demoLink = document.createElement('a');
+        demoLink.href = '#';  // Replace with your demo URL
+        demoLink.target = '_blank';
+        demoLink.innerText = 'View Demo';
+
+        // Fetch README content
+        const readmeUrl = `https://api.github.com/repos/${repo.full_name}/readme`;
+        const readmeResponse = await fetch(readmeUrl, { headers: { 'Accept': 'application/vnd.github.VERSION.raw' } });
+        if (readmeResponse.ok) {
+            const readmeData = await readmeResponse.text();
+            readmeBox.innerHTML = marked(readmeData);
+        }
+
         projectCard.appendChild(projectTitle);
         projectCard.appendChild(projectDescription);
         projectCard.appendChild(projectLink);
+        projectCard.appendChild(readmeBox);
+        projectCard.appendChild(demoLink);
+
         projectList.appendChild(projectCard);
     });
 }

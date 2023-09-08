@@ -88,3 +88,71 @@ header {
     margin: 0 10px;
     text-decoration: none;
 }
+
+/* GitHub-like styles for rendered markdown content */
+.readme-box {
+    padding: 1rem;
+    background-color: #ffffff;
+    border: 1px solid #e1e4e8;
+    border-radius: 3px;
+    overflow: auto;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 1rem;
+}
+
+.readme-box h1, .readme-box h2, .readme-box h3, .readme-box h4, .readme-box h5, .readme-box h6 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.readme-box h1 {
+    border-bottom: 1px solid #e1e4e8;
+    padding-bottom: 0.3em;
+}
+
+.readme-box p {
+    margin: 1rem 0;
+}
+
+.readme-box a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+.readme-box a:hover {
+    text-decoration: underline;
+}
+
+.readme-box code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(27,31,35,0.05);
+    border-radius: 3px;
+}
+
+.readme-box pre {
+    padding: 0.5rem;
+    background-color: #f6f8fa;
+    border-radius: 3px;
+    overflow: auto;
+}
+
+.readme-box img {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.project-card {
+    padding: 1rem;
+    border: 1px solid #e1e4e8;
+    margin-bottom: 1.5rem;
+    border-radius: 5px;
+}
+
+.project-card a {
+    display: block;
+    margin-top: 0.5rem;
+}
+
