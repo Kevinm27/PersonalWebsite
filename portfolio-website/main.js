@@ -32,12 +32,10 @@ function toggleSectionVisibility(sectionId) {
     const selectedSection = document.getElementById(sectionId);
     selectedSection.style.display = 'block';
 }
-  
-// Fetch repositories for an individual user
 async function fetchUserRepos() {
     const response1 = await fetch('https://api.github.com/users/Kevinm27/repos');
     const data1 = await response1.json();
-    const filteredRepos = data1.filter(repo => ['InteractiveBanking', 'JobAppFiller', 'StarShift'].includes(repo.name));
+    const filteredRepos = data1.filter(repo => repo.name !== 'COMP55Project' && ['InteractiveBanking', 'JobAppFiller', 'StarShiftRepo'].includes(repo.name));
     populateRepos(filteredRepos);
 }
 
@@ -47,38 +45,23 @@ function populateRepos(repositories) {
     repositories.forEach(async (repo) => {
         const projectCard = document.createElement('div');
         projectCard.className = 'project-card';
-        
-        if(repo.name == "StarShift"){
-            const videoDemo = document.createElement('video');
-            videoDemo.setAttribute('controls', true)
-            videoDemo.width = 300;
 
-            const videoSource = document.createElement('source');
-            videoSource.setAttribute('src', 'demo/StarShiftDemo.mp4');
-            videoSource.setAttribute('type', 'videos/mp4');
+        const leftDiv = document.createElement('div');
+        leftDiv.className = 'left-div';
 
-            videoDemo.appendChild(videoSource);
-            projectCard.appendChild(videoDemo);
-        }
+        const rightDiv = document.createElement('div');
+        rightDiv.className = 'right-div';
 
         const projectTitle = document.createElement('h3');
         projectTitle.innerText = repo.name;
 
-        const projectDescription = document.createElement('p');
-        projectDescription.innerText = repo.description || 'No description provided.';
-        
+        const readmeBox = document.createElement('div');
+        readmeBox.className = 'readme-box';
+
         const projectLink = document.createElement('a');
         projectLink.href = repo.html_url;
         projectLink.target = '_blank';
         projectLink.innerText = 'View on GitHub';
-
-        const readmeBox = document.createElement('div');
-        readmeBox.className = 'readme-box';
-
-        const demoLink = document.createElement('a');
-        demoLink.href = '#';  // Replace with your demo URL
-        demoLink.target = '_blank';
-        demoLink.innerText = 'View Demo';
 
         // Fetch README content
         const readmeUrl = `https://api.github.com/repos/${repo.full_name}/readme`;
@@ -88,12 +71,27 @@ function populateRepos(repositories) {
             readmeBox.innerHTML = marked(readmeData);
         }
 
-        projectCard.appendChild(projectTitle);
-        projectCard.appendChild(projectDescription);
-        projectCard.appendChild(projectLink);
-        projectCard.appendChild(readmeBox);
-        projectCard.appendChild(demoLink);
+        leftDiv.appendChild(projectTitle);
+        leftDiv.appendChild(projectLink);
+        leftDiv.appendChild(readmeBox);
 
+        const videoDemo = document.createElement('video');
+        videoDemo.setAttribute('controls', true);
+        videoDemo.width = 300;
+
+        if(repo.name == "StarShiftRepo") {
+            const videoSource = document.createElement('source');
+            videoSource.setAttribute('src', './demos/StarshiftDemo.mp4');
+            videoSource.setAttribute('type', 'video/mp4');
+            videoDemo.appendChild(videoSource);
+        } else {
+            const videoPlaceholder = document.createElement('p');
+            videoPlaceholder.innerText = 'Video demo coming soon!';
+            videoDemo.appendChild(videoPlaceholder);
+        }
+        rightDiv.appendChild(videoDemo);
+        projectCard.appendChild(leftDiv);
+        projectCard.appendChild(rightDiv);
         projectList.appendChild(projectCard);
     });
 }
@@ -116,6 +114,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch repositories
     fetchUserRepos();
 });
+
+const darkModeToggle = document.getElementById('darkModeToggle');
+darkModeToggle.addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+});
+
 
 // Call the function to add projects
 addProjects();

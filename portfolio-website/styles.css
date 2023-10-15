@@ -145,10 +145,16 @@ header {
 }
 
 .project-card {
+    display: flex;
+    justify-content: space-between;
     padding: 1rem;
     border: 1px solid #e1e4e8;
     margin-bottom: 1.5rem;
     border-radius: 5px;
+}
+
+.left-div, .right-div {
+    width: 45%;
 }
 
 .project-card a {
@@ -156,3 +162,39 @@ header {
     margin-top: 0.5rem;
 }
 
+body.dark-mode {
+    background-color: #333;
+    color: #f3f3f3;
+}
+
+body.dark-mode a {
+    color: #bb86fc;
+}
+
+.project-card h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+body.dark-mode,
+body.dark-mode #home,
+body.dark-mode #about,
+body.dark-mode #portfolio,
+body.dark-mode #contact {
+    background-color: #333;
+    color: #f3f3f3;
+}
+
+body.dark-mode a,
+body.dark-mode #navbar ul li a {
+    color: #bb86fc;
+}
+
+body.dark-mode .readme-box {
+    background-color: #444;
+    border-color: #555;
+}
+
+body.dark-mode .project-card {
+    border-color: #555;
+}
